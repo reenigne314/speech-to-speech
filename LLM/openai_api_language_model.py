@@ -1,5 +1,6 @@
 import logging
 import time
+import domain.prompts
 
 from nltk import sent_tokenize
 from rich.console import Console
@@ -7,6 +8,13 @@ from openai import OpenAI
 
 from baseHandler import BaseHandler
 from LLM.chat import Chat
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+api_key = os.environ.get("OPENAI_API_KEY")
+base_url = os.environ.get("url")
+model_name = os.environ.get("model_name")
 
 logger = logging.getLogger(__name__)
 
@@ -27,16 +35,16 @@ class OpenApiModelHandler(BaseHandler):
     """
     def setup(
         self,
-        model_name="deepseek-chat",
+        model_name=model_name,
         device="cuda",
         gen_kwargs={},
-        base_url =None,
+        base_url =base_url,
         api_key=None,
         stream=False,
         user_role="user",
         chat_size=1,
         init_chat_role="system",
-        init_chat_prompt="You are a helpful AI assistant.",
+        init_chat_prompt=domain.prompts.system_prompt,
     ):
         self.model_name = model_name
         self.stream = stream

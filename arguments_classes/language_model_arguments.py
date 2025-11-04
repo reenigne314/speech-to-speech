@@ -1,5 +1,5 @@
 from dataclasses import dataclass, field
-
+import domain.prompts
 
 @dataclass
 class LanguageModelHandlerArguments:
@@ -34,7 +34,7 @@ class LanguageModelHandlerArguments:
         },
     )
     init_chat_prompt: str = field(
-        default="You are a helpful and friendly AI assistant. You are polite, respectful, and aim to provide concise responses of less than 20 words.",
+        default=domain.prompts.system_prompt,
         metadata={
             "help": "The initial chat prompt to establish context for the language model. Default is 'You are a helpful AI assistant.'"
         },

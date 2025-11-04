@@ -12,6 +12,7 @@ from baseHandler import BaseHandler
 from rich.console import Console
 import logging
 from nltk import sent_tokenize
+import domain.prompts
 
 logger = logging.getLogger(__name__)
 
@@ -40,14 +41,14 @@ class LanguageModelHandler(BaseHandler):
 
     def setup(
         self,
-        model_name="microsoft/Phi-3-mini-4k-instruct",
+        model_name="HuggingFaceTB/SmolLM-360M-Instruct",
         device="cuda",
         torch_dtype="float16",
         gen_kwargs={},
         user_role="user",
         chat_size=1,
         init_chat_role=None,
-        init_chat_prompt="You are a helpful AI assistant.",
+        init_chat_prompt=domain.prompts.system_prompt,
     ):
         self.device = device
         self.torch_dtype = getattr(torch, torch_dtype)

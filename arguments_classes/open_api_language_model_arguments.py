@@ -1,11 +1,14 @@
+import os
+from dotenv import load_dotenv
 from dataclasses import dataclass, field
 
-
+load_dotenv()
+api_key = os.environ.get("OPENAI_API_KEY")
 @dataclass
 class OpenApiLanguageModelHandlerArguments:
     open_api_model_name: str = field(
         # default="HuggingFaceTB/SmolLM-360M-Instruct",
-        default="deepseek-chat",
+        default="qwen/qwen3-4b-2507",
         metadata={
             "help": "The pretrained language model to use. Default is 'deepseek-chat'."
         },
@@ -43,7 +46,7 @@ class OpenApiLanguageModelHandlerArguments:
         },
     )
     open_api_base_url: str = field(
-        default=None,
+        default="http://192.168.29.138:1234/v1",
         metadata={
             "help": "Is the root URL for all endpoints of an API, serving as the starting point for constructing API request.Default is Non"
         },
